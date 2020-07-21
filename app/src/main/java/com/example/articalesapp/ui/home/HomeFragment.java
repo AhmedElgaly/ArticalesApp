@@ -53,7 +53,7 @@ public class HomeFragment extends Fragment implements DetailsListener{
         articles_recycle.setAdapter(homeAdapter);
     }
     private void ObserveData(){
-        homeViewModel.fetchArticles().observe(getViewLifecycleOwner(), articles -> homeAdapter.setArticles(articles));
+        homeViewModel.GetData().observe(getViewLifecycleOwner(), articles -> homeAdapter.setArticles(articles));
     }
 
     @Override

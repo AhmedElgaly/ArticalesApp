@@ -30,13 +30,15 @@ public class HomeViewModel extends ViewModel {
 
     private static final String TAG = "HomeViewModel";
     MutableLiveData<List<Article>> articlesMutableLiveData = new MutableLiveData<>();
+    private CompositeDisposable disposable = new CompositeDisposable();
     private APIService mAPIService;
     public HomeViewModel() {
 
         mAPIService = ApiUtils.getAPIService();
     }
 
-
+    //here we use ZIP operator to combine different observables into one observable
+    //arranging returned data (Parallel)
     public LiveData<List<Article>> fetchArticles(){
         Observable<dataresponse> observable1 = mAPIService.getAllData1();
         Observable<dataresponse> observable2 = mAPIService.getAllData2();
@@ -73,5 +75,44 @@ public class HomeViewModel extends ViewModel {
                 });
         return articlesMutableLiveData;
     }
+    //here we use flatMap operator to combine different observables into one observable
+    //without arranging returned data (not Parallel)
+    public  LiveData<List<Article>>GetData(){
+        List<Article> result = new ArrayList<>();
+         disposable.add(mAPIService.getAllData1()
+                .subscribeOn(Schedulers.io())
+                .flatMap((Function<dataresponse, ObservableSource<dataresponse>>) response1 -> {
+                    result.addAll(response1.getArticles());
+                    return mAPIService.getAllData2();
+                }).map(response -> {
+                    result.addAll(response.getArticles());
+                    return result;
+                }).observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<List<Article>>() {
+                    @Override
+                    public void onNext(List<Article> articles) {
+                        Log.d(TAG, "rx onNext: "+ articles);
+                        Log.d(TAG, "testonNext: "+"done");
+                        articlesMutableLiveData.setValue(articles);
 
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                }));
+        return  articlesMutableLiveData;
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        disposable.clear();
+    }
 }

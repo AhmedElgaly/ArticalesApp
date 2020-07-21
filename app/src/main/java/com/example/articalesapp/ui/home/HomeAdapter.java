@@ -33,7 +33,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.articleViewHol
     private List<Article> articles = new ArrayList<>();
     private DetailsListener detailsListener;
     private static final String TAG = "HomeAdapter";
+    SimpleDateFormat format;
     public HomeAdapter() {
+        format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
     }
 
     @NonNull
@@ -50,12 +52,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.articleViewHol
         holder.article_title.setText(article.getTitle());
         holder.article_author.setText("By "+article.getAuthor());
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-
         try {
             Date date = format.parse(article.getPublishedAt());
             holder.publishedAt.setText(date.toString());
-            System.out.println(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
