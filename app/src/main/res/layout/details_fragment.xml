@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.articledetails.DetailsFragment">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        card_view:cardBackgroundColor="@android:color/white"
+        card_view:cardCornerRadius="0dp"
+        card_view:cardElevation="0dp"
+        android:layout_margin="20dp"
+        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            >
+
+            <ImageView
+                android:id="@+id/urlToImage"
+                android:layout_width="400dp"
+                android:layout_height="200dp"
+                android:padding="0dp"
+                android:layout_marginBottom="0dp"
+                android:src="@drawable/ic_launcher_background" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@id/urlToImage"
+                >
+                <TextView
+                    android:id="@+id/article_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="User Name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:background="@android:color/white"
+                    android:padding="5dp"
+                    android:gravity="left"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:id="@+id/article_author"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="User Name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:background="@android:color/white"
+                    android:padding="5dp"
+                    android:gravity="left"
+                    android:textSize="20sp"
+                    android:textStyle="italic"
+                    />
+                <ScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/article_author"
+                    >
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Today, artificial intelligence programs can recognize faces and objects in photos and videos, transcribe audio in real-time, detect cancer in x-ray scans years in advance, and compete with humans in some of the most complicated games. Until a few years ago, all these challenges were either thought insurmountable, decades away, or were being solved with Today, artificial intelligence programs can recognize faces and objects in photos and videos, transcribe audio in real-time, detect cancer in x-ray scans years in advance,"
+                    android:background="@android:color/white"
+                    android:gravity="left"
+                    android:textSize="15sp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:padding="10dp"
+                    android:layout_marginTop="10dp"
+
+
+                    />
+                </ScrollView>
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/btn_link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/card"
+        android:layout_margin="20dp"
+        android:background="@android:color/black"
+        android:padding="5dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:text="Open WebSite"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>
